@@ -23,7 +23,7 @@ var jsPsychSheet = {
 
     var i;
     var data = [];
-    for(i=this.lastrow; i<data_rows.length; i++){
+    for(i=0; i<data_rows.length; i++){
       var row = data_rows[i];
       row = row.slice(1, row.length-1)
       row = row.split('","');
@@ -45,5 +45,7 @@ var jsPsychSheet = {
         google.script.run.addDataMultiBlock(data);
       }
     }
+
+    this.lastrow = data_rows.length;
   }
 }
