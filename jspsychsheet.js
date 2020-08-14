@@ -46,6 +46,6 @@ var jsPsychSheet = {
       }
     }
 
-    this.lastrow = data_rows.length-1;
+    this.lastrow = data_rows.length-2;
   }
 }
