@@ -100,10 +100,11 @@
     timeline.push(debrief_block);
 
     /* start the experiment */
-    jsPsych.init({
+   jsPsych.init({
       timeline: timeline,
+      show_progress_bar: true,
       on_finish: function() {
-        jsPsych.data.displayData();
+          jsPsychSheet.uploadData(jsPsych.data.get().csv());
       }
     });
   </script>
