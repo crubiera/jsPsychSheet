@@ -34,14 +34,24 @@
 	var welcome = {
   		type: "html-keyboard-response",
   		stimulus: "Welcome to the experiment. Press any key to begin."
-	},
+	}
 
   	var instructions = {
-     		 type: "html-keyboard-response",
-     		 stimulus: "For the duration of this experiment, please plug in headphones or turn on your speakers to a comfortable volume. In this task, we will be testing the McGurk effect. The McGurk effect is a perceptual phenomenon that demonstrates an interaction between hearing and vision in speech perception. The illusion occurs when the auditory component of one sound is paired with the visual component of another sound, leading to the perception of a third sound. Press any key to continue."
+     	type: "html-keyboard-response",
+     	stimulus: "For the duration of this experiment, please plug in headphones or turn on your speakers to a comfortable volume. In this task, we will be testing the McGurk effect. The McGurk effect is a perceptual phenomenon that demonstrates an interaction between hearing and vision in speech perception. The illusion occurs when the auditory component of one sound is paired with the visual component of another sound, leading to the perception of a third sound. Press any key to continue."
+        }
+    
+    var instructionspt2 = {
+        type: "html-keyboard-response",
+        stimulus: "We will begin a practice trial of the experiment. Press any key to begin the practice trial."
+        }
+    
+    var practicetrialend = {
+        type: "html-keyboard-response", 
+        stimulus: "Congratulations, well done! For the real task there will be a total of 135 trials. You will receive a break screen between every 40-50 trial. Press any key to begin the experiment."   
 	};
 	    
-	timeline.push(welcome);
+	timeline.push(welcome,insturctions,instructionspt2,practicetrialend);
     
     
     /* Present a randomized order of all of the videos/trials you wish to show */
