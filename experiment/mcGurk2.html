@@ -8,8 +8,9 @@
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-keyboard-response.js"></script>
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-slider-response.js"></script>
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-button-response.js"></script>
+  <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
 	<link rel="stylesheet" href="https://crubiera.github.io/jsPsychSheet/jspsych/css/jspsych.css">
-	
+
 	<!-- jsPsychSheet library -->
     	<base target="_top">
     	<script src="https://crubiera.github.io/jsPsychSheet/jspsychsheet.js"></script>
@@ -20,17 +21,17 @@
 
 	// generate a random subject ID with 15 characters
 	var subject_id = jsPsych.randomization.randomID(6);
-	
+
 	// record the condition assignment in the jsPsych data
 	// this adds a property called 'subject' and a property called 'condition' to every trial
 	jsPsych.data.addProperties({
   		subject: subject_id,
 	});
-	    
+
 	/* create timeline */
 	var timeline = [];
 
-	/* define welcome message trial */	
+	/* define welcome message trial */
 	var welcome = {
   		type: "html-keyboard-response",
   		stimulus: "Welcome to the experiment. Press any key to begin."
@@ -40,26 +41,32 @@
      	type: "html-keyboard-response",
      	stimulus: "For the duration of this experiment, please plug in headphones or turn on your speakers to a comfortable volume. In this task, we will be testing the McGurk effect. The McGurk effect is a perceptual phenomenon that demonstrates an interaction between hearing and vision in speech perception. The illusion occurs when the auditory component of one sound is paired with the visual component of another sound, leading to the perception of a third sound. Press any key to continue."
         }
-    
+
     var instructionspt2 = {
+       type: "image-keyboard-response",
+       stimulus: "Your screen should be arms length away from your body as demonstrated in the picture"
+       sources: jsPsych.timelineVariable('image')
+       width: 800
+
+    var instructionspt3 = {
         type: "html-keyboard-response",
         stimulus: "We will begin a practice trial of the experiment. Press any key to begin the practice trial."
         }
-    
+
     var practicetrialend = {
-        type: "html-keyboard-response", 
-        stimulus: "Congratulations, well done! For the real task there will be a total of 135 trials. You will receive a break screen between every 40-50 trial. Press any key to begin the experiment."   
+        type: "html-keyboard-response",
+        stimulus: "Congratulations, well done! For the real task there will be a total of 135 trials. You will receive a break screen between every 40-50 trial. Press any key to begin the experiment."
 	};
-	    
+
 	timeline.push(welcome,instructions,instructionspt2,practicetrialend);
-    
-    
+
+
     /* Present a randomized order of all of the videos/trials you wish to show */
     /* Make sure the answer choices are contingent on the video */
     /* The answer choices are mainly from Table 1 in Stropahl et al., 2017 */
     /* We'll have to decide which options to give for the ones that aren't from that table */
     /* To learn more, check out https://www.jspsych.org/overview/timeline/#timeline-variables */
-    
+
 	var mcGurkProcedure = {
 		timeline: [
 			{
@@ -70,7 +77,7 @@
 				data: jsPsych.timelineVariable('video'), /* Store the video name */
 				trial_ends_after_video: true,
 				prompt: '<p></p>'
-				
+
 			},
 			{
 				type: 'video-button-response',
@@ -79,7 +86,7 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-				
+
 			},
 			{
 				type: 'html-slider-response',
@@ -114,13 +121,14 @@
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: ['Still need to decide what these choices should be'] },
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-			
+      { image: [https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png]}
+
 		],
 		randomize_order: true,
     	repetitions: 1
 	}
 	timeline.push(mcGurkProcedure);
-	
+
 
 	/* start the experiment */
 	jsPsych.init({
