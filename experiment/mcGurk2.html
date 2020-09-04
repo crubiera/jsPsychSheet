@@ -42,9 +42,13 @@
      	stimulus: "For the duration of this experiment, please plug in headphones or turn on your speakers to a comfortable volume. In this task, we will be testing the McGurk effect. The McGurk effect is a perceptual phenomenon that demonstrates an interaction between hearing and vision in speech perception. The illusion occurs when the auditory component of one sound is paired with the visual component of another sound, leading to the perception of a third sound. Press any key to continue."
         }
 
+    var image_stimuli = {
+      { stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png" } }
+        }
+
     var instructionspt2 = {
        type: "image-keyboard-response",
-       source: jsPsych.timelineVariable('image'),
+       source: jsPsych.timelineVariable('stimulus'),
        stimulus: "Your screen should be arms length away from your body as demonstrated in the picture."
         }
 
@@ -120,8 +124,7 @@
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'],1) },
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: ['Still need to decide what these choices should be'] },
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-      { image: [https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png]}
+			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: ['Still need to decide what these choices should be'] }
 
 		],
 		randomize_order: true,
