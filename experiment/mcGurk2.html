@@ -42,14 +42,10 @@
      	stimulus: "For the duration of this experiment, please plug in headphones or turn on your speakers to a comfortable volume. In this task, we will be testing the McGurk effect. The McGurk effect is a perceptual phenomenon that demonstrates an interaction between hearing and vision in speech perception. The illusion occurs when the auditory component of one sound is paired with the visual component of another sound, leading to the perception of a third sound. Press any key to continue."
         }
 
-    var image_stimuli = {
-      stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png"
-        }
-
     var instructionspt2 = {
        type: "image-keyboard-response",
-       source: jsPsych.timelineVariable('stimulus'),
-       stimulus: "Your screen should be arms length away from your body as demonstrated in the picture."
+       stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png",
+       prompt: "Your screen should be arms length away from your body as demonstrated in the picture."
         }
 
     var instructionspt3 = {
