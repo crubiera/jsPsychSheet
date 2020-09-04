@@ -44,9 +44,8 @@
 
     var instructionspt2 = {
        type: "image-keyboard-response",
+       source: jsPsych.timelineVariable('image'),
        stimulus: "Your screen should be arms length away from your body as demonstrated in the picture."
-       sources: jsPsych.timelineVariable('image')
-       width: 800
         }
 
     var instructionspt3 = {
@@ -59,7 +58,7 @@
         stimulus: "Congratulations, well done! For the real task there will be a total of 135 trials. You will receive a break screen between every 40-50 trial. Press any key to begin the experiment."
 	};
 
-	timeline.push(welcome,instructions,instructionspt2,practicetrialend);
+	timeline.push(welcome,instructions,instructionspt2,instructionspt3,practicetrialend);
 
 
     /* Present a randomized order of all of the videos/trials you wish to show */
