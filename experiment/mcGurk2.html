@@ -60,12 +60,46 @@
         stimulus: "We will begin a practice trial of the experiment. Press any key to begin the practice trial."
         }
 
+    var practicetrial = {
+      timeline: [
+  			{
+  				type: 'video-button-response',
+  				sources: jsPsych.timelineVariable('video'),
+  				width: 800,
+  				choices: [],
+  				data: jsPsych.timelineVariable('video'), /* Store the video name */
+  				trial_ends_after_video: true,
+  				prompt: '<p></p>'
+  
+  			},
+  			{
+  				type: 'video-button-response',
+  				sources: [],
+  				width: 800,
+  				choices: jsPsych.timelineVariable('syllables'),
+  				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
+  				prompt: '<p>Which syllable did you perceive?</p>'
+  
+  			},
+  			{
+  				type: 'html-slider-response',
+  				stimulus: '<p>How confident are you in your answer?</p>',
+  				labels: ['0','25','50','75','100'],
+  				min: 0,
+  				max: 100,
+  				start: function(){
+  					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+  					},
+  				step: 1,
+  				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+  			}  
+
     var practicetrialend = {
         type: "html-keyboard-response",
         stimulus: "Congratulations, well done! For the real task there will be a total of 135 trials. You will receive a break screen between every 40-50 trial. Press any key to begin the experiment."
 	};
 
-	timeline.push(welcome,consent,instructions,instructionspt2,instructionspt3,practicetrialend);
+	timeline.push(welcome,consent,instructions,instructionspt2,instructionspt3,practicetrial,practicetrialend);
 
 
     /* Present a randomized order of all of the videos/trials you wish to show */
