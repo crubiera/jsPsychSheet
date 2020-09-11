@@ -6,6 +6,7 @@
 	<!-- jsPsych library -->
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/jspsych.js"></script>
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-external-html.js"></script>
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-slider-response.js"></script>
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-button-response.js"></script>
   <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
@@ -36,6 +37,12 @@
   		type: "html-keyboard-response",
   		stimulus: "Welcome to the experiment. Press any key to begin."
 	}
+
+    var consent = {
+      type: "external-html",
+      url: "https://crubiera.github.io/jsPsychSheet/experiment/consent.html"
+      cont_btn: "start"
+       }
 
   	var instructions = {
      	type: "html-keyboard-response",
