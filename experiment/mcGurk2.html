@@ -67,33 +67,25 @@
       type: 'video-keyboard-response',
       sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
       width: 800,
-  		prompt: '<p> Press Y if you heard the video, or R to replay it.<p>'
+  		prompt: 'Press R to repeat the trial, or press C to continue'
   	}
-  
-  	var if_trial = {
-      type: 'html-keyboard-response',
-      stimulus: 'You are ready to begin the experiment. Press any key to continue.'
-  	}
-  
-  	var if_node = {
-      timeline: [if_trial],
-      		conditional_function: function(){
-          		// get the data from the previous trial,
-          		// and check which key was pressed
-          		var data = jsPsych.data.get().last(1).values()[0];
-          		if(data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode('y')){
-              			return false;
-          		} else {
-              			return true;
-          		}
-      		}
-  	}
+
+    var loop_node = {
+      timeline: [pre_if_trial],
+      loop_function: function(data){
+          if(jsPsych.pluginAPI.convertKeyCharacterToKeyCode('r') == data.values()[0].key_press){
+              return true;
+          } else {
+            return false;
+          }
+      }
+    }
   
   	var after_if_trial = {
         type: 'html-keyboard-response',
       	stimulus: 'Press any key to continue.'
   	};
-      timeline.push(pre_if_trial, if_trial, if_node, after_if_trial);
+      timeline.push(pre_if_trial, loop_node, after_if_trial);
 
     var instructions_pt2 = {
        type: "image-keyboard-response",
