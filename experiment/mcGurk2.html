@@ -9,6 +9,7 @@
   <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-external-html.js"></script>
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-html-slider-response.js"></script>
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-button-response.js"></script>
+  <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-keyboard-response.js"></script>
   <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
 	<link rel="stylesheet" href="https://crubiera.github.io/jsPsychSheet/jspsych/css/jspsych.css">
 
@@ -52,8 +53,7 @@
     var consent = {
       type:'external-html',
       url: "https://ufpaclab.github.io/Consent-Forms/Active/Consent.html",
-      cont_btn: "start",
-      check_fn: check_consent
+      cont_btn: "consent-button",
     };
 
   	var instructions = {
@@ -61,13 +61,47 @@
      	stimulus: "For the duration of this experiment, please plug in headphones or turn on your speakers to a comfortable volume. In this task, we will be testing the McGurk effect. The McGurk effect is a perceptual phenomenon that demonstrates an interaction between hearing and vision in speech perception. The illusion occurs when the auditory component of one sound is paired with the visual component of another sound, leading to the perception of a third sound. Press any key to continue."
         }
 
+    timeline.push(welcome,consent,instructions);
+
+    var pre_if_trial = {
+      type: 'video-keyboard-response',
+      sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
+      width: 800,
+  		prompt: '<p> Press Y if you heard the video, or R to replay it.<p>'
+  	}
+  
+  	var if_trial = {
+      type: 'html-keyboard-response',
+      stimulus: 'You are ready to begin the experiment. Press any key to continue.'
+  	}
+  
+  	var if_node = {
+      timeline: [if_trial],
+      		conditional_function: function(){
+          		// get the data from the previous trial,
+          		// and check which key was pressed
+          		var data = jsPsych.data.get().last(1).values()[0];
+          		if(data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode('y')){
+              			return false;
+          		} else {
+              			return true;
+          		}
+      		}
+  	}
+  
+  	var after_if_trial = {
+        type: 'html-keyboard-response',
+      	stimulus: 'Press any key to continue.'
+  	};
+      timeline.push(pre_if_trial, if_trial, if_node, after_if_trial);
+
     var instructions_pt2 = {
        type: "image-keyboard-response",
        stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png",
        prompt: "<p>Your screen should be arms length away from your body as demonstrated in the picture.</p>"
         }
 
-	timeline.push(welcome,consent,instructions,instructions_pt2);
+	timeline.push(instructions_pt2);
 
 
     /* Present a randomized order of all of the videos/trials you wish to show */
@@ -135,11 +169,11 @@
 
     var practice_trial_end = {
       type: "html-keyboard-response",
-      stimulus: "Congratulations! You have finished the practice trial run. For the real task there will be a total of 135 trials. You will receive a break screen between every 45 trials. Press any key to begin the experiment."
+      stimulus: "Congratulations! You have finished the practice trial run. We will now proceed to the real experiment. Press any key to begin."
     };
     timeline.push(practice_trial_end);
     
-	var mcGurkProcedure = {
+	var mcGurkProcedure1 = {
 		timeline: [
 			{
 				type: 'video-button-response',
@@ -150,7 +184,20 @@
 				trial_ends_after_video: true,
 				prompt: '<p></p>'
 
-			},
+      },
+      {
+  			type: 'html-slider-response',
+  			stimulus: '<p>How confident are you that the auditory and visual syllables were the same?</p>',
+  			labels: ['0','25','50','75','100'],
+  			min: 0,
+  			max: 100,
+  			start: function(){
+  				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+  				},
+  			step: 1,
+  			prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+
+      },
 			{
 				type: 'video-button-response',
 				sources: [],
@@ -158,49 +205,145 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-
-			},
-			{
-				type: 'html-slider-response',
-				stimulus: '<p>How confident are you in your answer?</p>',
-				labels: ['0','25','50','75','100'],
-				min: 0,
-				max: 100,
-				start: function(){
-					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
-					},
-				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
-			}
+			}  
 		],
 		timeline_variables: [
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Da','Ga','Pa'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualKa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ka','Ga','Da'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Na','Ga','Da'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ta','Pa','Da'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Na','Ba'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualKa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Na','La'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Da','Ka','Ta'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ga','Ka','Ta'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualKa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Da','Ka','Ta'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualNa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Na','Ka','Ta'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: ['Still need to decide what these choices should be'] },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: ['Still need to decide what these choices should be'] }
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Ka','Ta'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
 
 		],
 		randomize_order: true,
-    	repetitions: 1
+    	repetitions: 5
 	}
-	timeline.push(mcGurkProcedure);
+	timeline.push(mcGurkProcedure1);
 
+  var rest1 = {
+      type: "html-keyboard-response",
+      stimulus: "You will now have a short break. There is no time limit. Press any key to resume the experiment."
+  };
+  timeline.push(rest1); 
 
+  var mcGurkProcedure2 = {
+    timeline: [
+			{
+				type: 'video-button-response',
+				sources: jsPsych.timelineVariable('video'),
+				width: 800,
+				choices: [],
+				data: jsPsych.timelineVariable('video'), /* Store the video name */
+				trial_ends_after_video: true,
+				prompt: '<p></p>'
+
+      },
+      {
+  			type: 'html-slider-response',
+  			stimulus: '<p>How confident are you that the auditory and visual syllables were the same?</p>',
+  			labels: ['0','25','50','75','100'],
+  			min: 0,
+  			max: 100,
+  			start: function(){
+  				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+  				},
+  			step: 1,
+  			prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+
+      },
+			{
+				type: 'video-button-response',
+				sources: [],
+				width: 800,
+				choices: jsPsych.timelineVariable('syllables'),
+				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
+				prompt: '<p>Which syllable did you perceive?</p>'
+			}  
+		],
+		timeline_variables: [
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Ka','Ta'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
+
+		],
+		randomize_order: true,
+    	repetitions: 5
+	}
+	timeline.push(mcGurkProcedure2);
+
+  var rest2 = {
+      type: "html-keyboard-response",
+      stimulus: "You will now have a short break. There is no time limit. Press any key to resume the experiment."
+  };
+  timeline.push(rest2); 
+
+  var mcGurkProcedure3 = {
+    timeline: [
+			{
+				type: 'video-button-response',
+				sources: jsPsych.timelineVariable('video'),
+				width: 800,
+				choices: [],
+				data: jsPsych.timelineVariable('video'), /* Store the video name */
+				trial_ends_after_video: true,
+				prompt: '<p></p>'
+
+      },
+      {
+  			type: 'html-slider-response',
+  			stimulus: '<p>How confident are you that the auditory and visual syllables were the same?</p>',
+  			labels: ['0','25','50','75','100'],
+  			min: 0,
+  			max: 100,
+  			start: function(){
+  				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+  				},
+  			step: 1,
+  			prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+
+      },
+			{
+				type: 'video-button-response',
+				sources: [],
+				width: 800,
+				choices: jsPsych.timelineVariable('syllables'),
+				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
+				prompt: '<p>Which syllable did you perceive?</p>'
+			}  
+		],
+		timeline_variables: [
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Ka','Ta'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
+
+		],
+		randomize_order: true,
+    	repetitions: 5
+	}
+	timeline.push(mcGurkProcedure3);
+
+  var experiment_end = {
+      type: "html-keyboard-response",
+      stimulus: "Congratulations! You have reached the end of the experiment. Please do not close your window until it says that the data has finished uploading on the next screen. Press any key to upload your results."
+  };
+  timeline.push(experiment_end);
+  
 	/* start the experiment */
 	jsPsych.init({
   		timeline: timeline,
