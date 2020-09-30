@@ -57,9 +57,10 @@
     };
 
   	var instructions = {
-     	type: "html-keyboard-response",
-     	stimulus: "For the duration of this experiment, please plug in headphones or turn on your speakers to a comfortable volume. In this task, we will be testing the McGurk effect. The McGurk effect is a perceptual phenomenon that demonstrates an interaction between hearing and vision in speech perception. The illusion occurs when the auditory component of one sound is paired with the visual component of another sound, leading to the perception of a third sound. Press any key to continue."
-        }
+      type: "image-keyboard-response",
+      stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png",
+      prompt: "<p>Your screen should be arms length away from your body as demonstrated in the picture.</p> <p>Please plug in headphones or turn on your speakers.</p>"
+       }
 
     timeline.push(welcome,consent,instructions);
 
@@ -67,7 +68,7 @@
       type: 'video-keyboard-response',
       sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
       width: 800,
-  		prompt: 'Press R to repeat the trial, or press C to continue'
+  		prompt: '<p>Listen to this video and adjust your volume to a comfortable level. Press R to repeat the trial, or press C to continue</p> <p>When replaying the video, please feel free to adjust your volume to a comfortable level, as necessary.<p>'
   	}
 
     var loop_node = {
@@ -79,21 +80,8 @@
             return false;
           }
       }
-    }
-  
-  	var after_if_trial = {
-        type: 'html-keyboard-response',
-      	stimulus: 'Press any key to continue.'
   	};
-      timeline.push(pre_if_trial, loop_node, after_if_trial);
-
-    var instructions_pt2 = {
-       type: "image-keyboard-response",
-       stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png",
-       prompt: "<p>Your screen should be arms length away from your body as demonstrated in the picture.</p>"
-        }
-
-	timeline.push(instructions_pt2);
+      timeline.push(pre_if_trial, loop_node);
 
 
     /* Present a randomized order of all of the videos/trials you wish to show */
@@ -101,10 +89,10 @@
     /* The answer choices are mainly from Table 1 in Stropahl et al., 2017 */
     /* We'll have to decide which options to give for the ones that aren't from that table */
     /* To learn more, check out https://www.jspsych.org/overview/timeline/#timeline-variables */
-    
+
     var practice_trial_instructions = {
       type: "html-keyboard-response",
-      stimulus: "We will begin a practice trial of the experiment. Press any key to begin the practice trial."
+      stimulus: "You will now be given some practice trials to prepare you for the real experiment. On each practice trial, you will both watch a video, report the syllable you perceived, and rate your confidence.  There will be 9 practice trials. Press any key to continue."
     };
     timeline.push(practice_trial_instructions);
 
@@ -118,7 +106,7 @@
 				data: jsPsych.timelineVariable('video'), /* Store the video name */
 				trial_ends_after_video: true,
 				prompt: '<p></p>'
-				
+
 			},
 			{
 				type: 'video-button-response',
@@ -127,11 +115,11 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-				
+
 			},
 			{
 				type: 'html-slider-response',
-				stimulus: '<p>How confident are you in your answer?</p>',
+				stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
 				labels: ['0','25','50','75','100'],
 				min: 0,
 				max: 100,
@@ -139,7 +127,7 @@
 					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
 					},
 				step: 1,
-				prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+				prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
 			}
 		],
 		timeline_variables: [
@@ -152,7 +140,7 @@
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
 			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
-			
+
 		],
 		randomize_order: true,
     	repetitions: 1
@@ -164,7 +152,7 @@
       stimulus: "Congratulations! You have finished the practice trial run. We will now proceed to the real experiment. Press any key to begin."
     };
     timeline.push(practice_trial_end);
-    
+
 	var mcGurkProcedure1 = {
 		timeline: [
 			{
@@ -179,7 +167,7 @@
       },
       {
   			type: 'html-slider-response',
-  			stimulus: '<p>How confident are you that the auditory and visual syllables were the same?</p>',
+  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
   			labels: ['0','25','50','75','100'],
   			min: 0,
   			max: 100,
@@ -187,7 +175,7 @@
   				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
   				},
   			step: 1,
-  			prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+  			prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
 
       },
 			{
@@ -197,7 +185,7 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-			}  
+			}
 		],
 		timeline_variables: [
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
@@ -220,7 +208,7 @@
       type: "html-keyboard-response",
       stimulus: "You will now have a short break. There is no time limit. Press any key to resume the experiment."
   };
-  timeline.push(rest1); 
+  timeline.push(rest1);
 
   var mcGurkProcedure2 = {
     timeline: [
@@ -236,7 +224,7 @@
       },
       {
   			type: 'html-slider-response',
-  			stimulus: '<p>How confident are you that the auditory and visual syllables were the same?</p>',
+  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
   			labels: ['0','25','50','75','100'],
   			min: 0,
   			max: 100,
@@ -244,7 +232,7 @@
   				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
   				},
   			step: 1,
-  			prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+  			prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
 
       },
 			{
@@ -254,7 +242,7 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-			}  
+			}
 		],
 		timeline_variables: [
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
@@ -277,7 +265,7 @@
       type: "html-keyboard-response",
       stimulus: "You will now have a short break. There is no time limit. Press any key to resume the experiment."
   };
-  timeline.push(rest2); 
+  timeline.push(rest2);
 
   var mcGurkProcedure3 = {
     timeline: [
@@ -293,7 +281,7 @@
       },
       {
   			type: 'html-slider-response',
-  			stimulus: '<p>How confident are you that the auditory and visual syllables were the same?</p>',
+  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
   			labels: ['0','25','50','75','100'],
   			min: 0,
   			max: 100,
@@ -301,7 +289,7 @@
   				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
   				},
   			step: 1,
-  			prompt: "<p>Rate confidence from 0 (no confidence) to 100 (fully confident)</p>"
+  			prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
 
       },
 			{
@@ -311,7 +299,7 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-			}  
+			}
 		],
 		timeline_variables: [
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
@@ -335,7 +323,7 @@
       stimulus: "Congratulations! You have reached the end of the experiment. Please do not close your window until it says that the data has finished uploading on the next screen. Press any key to upload your results."
   };
   timeline.push(experiment_end);
-  
+
 	/* start the experiment */
 	jsPsych.init({
   		timeline: timeline,
