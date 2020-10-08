@@ -38,6 +38,7 @@
   		type: "html-keyboard-response",
   		stimulus: "Welcome to the experiment. We will need to obtain your consent for this experiment. Press any key to move on to the consent page."
 	}
+  timeline.push(welcome);
 
     var check_consent = function(elem) {
       if (document.getElementById('consent_checkbox').checked) {
@@ -52,17 +53,18 @@
 
     var consent = {
       type:'external-html',
-      url: "https://ufpaclab.github.io/Consent-Forms/Active/Consent.html",
+      url: "https://crubiera.github.io/jsPsychSheet/experiment/external_page.html",
       cont_btn: "consent-button",
     };
+    timeline.push(consent);
 
   	var instructions = {
       type: "image-keyboard-response",
       stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png",
-      prompt: "<p>Your screen should be arms length away from your body as demonstrated in the picture.</p> <p>Please plug in headphones or turn on your speakers.</p>"
+      prompt: "<p>Your screen should be one arm's length away from your body as demonstrated in the picture.</p> <p>Please plug in headphones or turn on your speakers.</p> <p>Press any key to continue.</p>"
        }
 
-    timeline.push(welcome,consent,instructions);
+    timeline.push(instructions);
 
     var pre_if_trial = {
       type: 'video-keyboard-response',
@@ -92,7 +94,7 @@
 
     var practice_trial_instructions = {
       type: "html-keyboard-response",
-      stimulus: "You will now be given some practice trials to prepare you for the real experiment. On each practice trial, you will both watch a video, report the syllable you perceived, and rate your confidence.  There will be 9 practice trials. Press any key to continue."
+      stimulus: "You will now be given some practice trials to prepare you for the real experiment. On each practice trial, you will watch a video, report the syllable you perceived, and rate your confidence.  There will be 9 practice trials. Press any key to continue."
     };
     timeline.push(practice_trial_instructions);
 
@@ -118,16 +120,16 @@
 
 			},
 			{
-				type: 'html-slider-response',
-				stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
-				labels: ['0','25','50','75','100'],
-				min: 0,
-				max: 100,
-				start: function(){
-					return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
-					},
-				step: 1,
-				prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
+        type: 'html-slider-response',
+  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+  			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different<br>','8','9<br>Definitely different<br>'],
+  			min: 1,
+  			max: 9,
+  			start: function(){
+  				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+  				},
+  			step: 0.01,
+        slider_width: 700
 			}
 		],
 		timeline_variables: [
@@ -166,16 +168,16 @@
 
       },
       {
-  			type: 'html-slider-response',
+        type: 'html-slider-response',
   			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
-  			labels: ['0','25','50','75','100'],
-  			min: 0,
-  			max: 100,
+  			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
+  			min: 1,
+  			max: 9,
   			start: function(){
   				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
   				},
-  			step: 1,
-  			prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
+  			step: 0.01,
+        slider_width: 700
 
       },
 			{
@@ -223,16 +225,16 @@
 
       },
       {
-  			type: 'html-slider-response',
+        type: 'html-slider-response',
   			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
-  			labels: ['0','25','50','75','100'],
-  			min: 0,
-  			max: 100,
+  			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
+  			min: 1,
+  			max: 9,
   			start: function(){
   				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
   				},
-  			step: 1,
-  			prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
+  			step: 0.01,
+        slider_width: 700
 
       },
 			{
@@ -280,16 +282,16 @@
 
       },
       {
-  			type: 'html-slider-response',
+        type: 'html-slider-response',
   			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
-  			labels: ['0','25','50','75','100'],
-  			min: 0,
-  			max: 100,
+  			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
+  			min: 1,
+  			max: 9,
   			start: function(){
   				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
   				},
-  			step: 1,
-  			prompt: "<p>Rate confidence from 0 (confident same) to 100 (confident different)</p>"
+  			step: 0.01,
+        slider_width: 700
 
       },
 			{
