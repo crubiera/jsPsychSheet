@@ -61,7 +61,8 @@
   	var instructions = {
       type: "image-keyboard-response",
       stimulus: "https://crubiera.github.io/jsPsychSheet/experiment/video/armsLength.png",
-      prompt: "<p>Your screen should be one arm's length away from your body as demonstrated in the picture.</p> <p>Please plug in headphones or turn on your speakers.</p> <p>Press any key to continue.</p>"
+      prompt: "<p>Your screen should be one arm's length away from your body as demonstrated in the picture.</p> <p>Please plug in headphones or turn on your speakers. Press any key to continue</p>",
+      width: 600
        }
 
     timeline.push(instructions);
@@ -70,16 +71,16 @@
       type: 'video-keyboard-response',
       sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
       width: 800,
-  		prompt: '<p>Listen to this video and adjust your volume to a comfortable level. Press R to repeat the trial, or press C to continue</p> <p>When replaying the video, please feel free to adjust your volume to a comfortable level, as necessary.<p>'
+  		prompt: '<p>Use this video to adjust your volume to a comfortable level. Press R to repeat the video, or press C to continue</p>'
   	}
 
     var loop_node = {
       timeline: [pre_if_trial],
       loop_function: function(data){
-          if(jsPsych.pluginAPI.convertKeyCharacterToKeyCode('r') == data.values()[0].key_press){
-              return true;
+          if(jsPsych.pluginAPI.convertKeyCharacterToKeyCode('c') == data.values()[0].key_press){
+              return false;
           } else {
-            return false;
+            return true;
           }
       }
   	};
