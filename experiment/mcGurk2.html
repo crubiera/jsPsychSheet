@@ -68,23 +68,22 @@
     timeline.push(instructions);
 
     var pre_if_trial = {
-      type: 'video-keyboard-response',
-      sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
-      width: 800,
-  		prompt: '<p>Use this video to adjust your volume to a comfortable level. Press R to repeat the video, or press C to continue</p>'
-  	}
-
-    var loop_node = {
-      timeline: [pre_if_trial],
-      loop_function: function(data){
-          if(jsPsych.pluginAPI.convertKeyCharacterToKeyCode('c') == data.values()[0].key_press){
-              return false;
-          } else {
-            return true;
-          }
+      timeline: [{
+        type: 'video-button-response',
+        sources: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'],
+        width: 800,
+  		  prompt: '<p>Use this video to adjust your volume to a comfortable level. Feel free to repeat the video to adjust the volume, or press continue.</p>',
+        choices: ['Repeat','Continue']
+  	}],
+    loop_function: function(data){
+      if(data.values()[0].button_pressed == 0){
+        return true;
+      } else {
+          return false;
       }
-  	};
-      timeline.push(pre_if_trial, loop_node);
+    }
+  };
+      timeline.push(pre_if_trial);
 
 
     /* Present a randomized order of all of the videos/trials you wish to show */
@@ -152,7 +151,7 @@
 
     var practice_trial_end = {
       type: "html-keyboard-response",
-      stimulus: "Congratulations! You have finished the practice trial run. We will now proceed to the real experiment. The experiment's format will consist of 3 trials, each with a break after around every 6 minutes. Press any key to begin the experiment."
+      stimulus: "Congratulations! You have finished the practice trial run. We will now proceed to the real experiment. The experiment's design consists of trials that each take around 6 minutes. There will be break screens with unlimited time between these trials. Press any key to begin the experiment."
     };
     timeline.push(practice_trial_end);
 
@@ -168,19 +167,6 @@
 				prompt: '<p></p>'
 
       },
-      {
-        type: 'html-slider-response',
-  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
-  			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
-  			min: 1,
-  			max: 9,
-  			start: function(){
-  				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
-  				},
-  			step: 0.01,
-        slider_width: 700
-
-      },
 			{
 				type: 'video-button-response',
 				sources: [],
@@ -188,7 +174,19 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-			}
+			},
+      {
+      type: 'html-slider-response',
+      stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+      labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
+      min: 1,
+      max: 9,
+      start: function(){
+        return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+        },
+      step: 0.01,
+      slider_width: 700
+    }
 		],
 		timeline_variables: [
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
@@ -225,19 +223,6 @@
 				prompt: '<p></p>'
 
       },
-      {
-        type: 'html-slider-response',
-  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
-  			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
-  			min: 1,
-  			max: 9,
-  			start: function(){
-  				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
-  				},
-  			step: 0.01,
-        slider_width: 700
-
-      },
 			{
 				type: 'video-button-response',
 				sources: [],
@@ -245,7 +230,19 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-			}
+			},
+      {
+      type: 'html-slider-response',
+      stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+      labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
+      min: 1,
+      max: 9,
+      start: function(){
+        return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+        },
+      step: 0.01,
+      slider_width: 700
+    }
 		],
 		timeline_variables: [
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
@@ -282,19 +279,6 @@
 				prompt: '<p></p>'
 
       },
-      {
-        type: 'html-slider-response',
-  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
-  			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
-  			min: 1,
-  			max: 9,
-  			start: function(){
-  				return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
-  				},
-  			step: 0.01,
-        slider_width: 700
-
-      },
 			{
 				type: 'video-button-response',
 				sources: [],
@@ -302,7 +286,19 @@
 				choices: jsPsych.timelineVariable('syllables'),
 				data: jsPsych.timelineVariable('syllables'), /* Store the answer choices on that trial */
 				prompt: '<p>Which syllable did you perceive?</p>'
-			}
+			},
+      {
+      type: 'html-slider-response',
+      stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+      labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
+      min: 1,
+      max: 9,
+      start: function(){
+        return jsPsych.randomization.sampleWithoutReplacement([10, 20, 30, 40, 50, 60, 70, 80, 90], 1)[0];
+        },
+      step: 0.01,
+      slider_width: 700
+    }
 		],
 		timeline_variables: [
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
