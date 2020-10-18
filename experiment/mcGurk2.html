@@ -94,7 +94,7 @@
 
     var practice_trial_instructions = {
       type: "html-keyboard-response",
-      stimulus: "You will now be given some practice trials to prepare you for the real experiment. On each practice trial, you will watch a video, report the syllable you perceived, and rate your confidence.  There will be 9 practice trials. Press any key to continue."
+      stimulus: "You will now be given some practice trials to prepare you for the real experiment. On each practice trial, you will watch a video, report the syllable you perceived, and you will rate your confidence in whether the visual syllable in the video and the auditory syllable you heard were the SAME, or DIFFERENT. There will be 9 practice trials. Press any key to continue."
     };
     timeline.push(practice_trial_instructions);
 
@@ -121,7 +121,7 @@
 			},
 			{
         type: 'html-slider-response',
-  			stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+  			stimulus: '<p>Were the auditory and visual syllables the same, or different?</p>',
   			labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different<br>','8','9<br>Definitely different<br>'],
   			min: 1,
   			max: 9,
@@ -134,14 +134,14 @@
 		],
 		timeline_variables: [
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Ka','Ta'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
-			{ video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Na','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ta'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
 
 		],
 		randomize_order: true,
@@ -177,7 +177,7 @@
 			},
       {
       type: 'html-slider-response',
-      stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+      stimulus: '<p>Were the auditory and visual syllables the same, or different?</p>',
       labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
       min: 1,
       max: 9,
@@ -192,10 +192,10 @@
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Ka','Ta'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Na','Ba'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ta'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
 
@@ -233,7 +233,7 @@
 			},
       {
       type: 'html-slider-response',
-      stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+      stimulus: '<p>Were the auditory and visual syllables the same, or different?</p>',
       labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
       min: 1,
       max: 9,
@@ -248,10 +248,10 @@
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Ka','Ta'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Na','Ba'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ta'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
 
@@ -289,7 +289,7 @@
 			},
       {
       type: 'html-slider-response',
-      stimulus: '<p>Were the auditory and visual stimuli the same, or different?</p>',
+      stimulus: '<p>Were the auditory and visual syllables the same, or different?</p>',
       labels: ['1<br>Definitely same<br>','2','3<br>Probably same<br>','4','5<br>Not sure<br>','6','7<br>Probably different','8','9<br>Definitely different<br>'],
       min: 1,
       max: 9,
@@ -304,10 +304,10 @@
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualBa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ma'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryBaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Ga','Da','Ma'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryDaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Da'],1) },
-      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Ka','Ta'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ga','Na','Ba'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryMaVisualMa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Pa','Ga','Ba'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryNaVisualDa.mp4'], syllables: jsPsych.randomization.repeat(['Na','Da','Ka','Ma'],1) },
-      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ma','Ta','Ga','Ba'],1) },
+      { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualPa.mp4'], syllables: jsPsych.randomization.repeat(['Ba','Pa','Ga','Ta'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryPaVisualTa.mp4'], syllables: jsPsych.randomization.repeat(['Pa','Ta','Da','Ka'],1) },
       { video: ['https://crubiera.github.io/jsPsychSheet/experiment/video/AuditoryTaVisualGa.mp4'], syllables: jsPsych.randomization.repeat(['Ta','Ga','Ka','Da'],1) },
 
