@@ -11,6 +11,8 @@
 	<script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-button-response.js"></script>
   <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-video-keyboard-response.js"></script>
   <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-image-keyboard-response.js"></script>
+  <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-survey-text.js"></script>
+  <script src="https://crubiera.github.io/jsPsychSheet/jspsych/plugins/jspsych-survey-multi-choice.js"></script>
 	<link rel="stylesheet" href="https://crubiera.github.io/jsPsychSheet/jspsych/css/jspsych.css">
 
 	<!-- jsPsychSheet library -->
@@ -57,6 +59,23 @@
       cont_btn: "consent-button",
     };
     timeline.push(consent);
+
+    var sex = {
+          type: 'survey-multi-choice',
+          questions: [
+            {prompt: "What sex were you assigned at birth, on your original birth certificate?",
+            name: 'sex', options: ['Female', 'Male', 'Prefer not to respond'], required:true}
+          ],
+        };
+        timeline.push(sex);
+
+      var age = {
+          type: 'survey-text',
+          questions: [
+            {prompt: "How old are you?", name: 'Age'}
+          ],
+        };
+        timeline.push(age);
 
   	var instructions = {
       type: "image-keyboard-response",
